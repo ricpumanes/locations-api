@@ -1,7 +1,18 @@
 import styled from "styled-components";
 
-const Styles = styled.div`
+export const Wrapper = styled.div`
   padding: 1rem;
+
+  #add-location-btn {
+    margin-bottom: 2rem;
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+
+    .icon {
+      margin-right: 5px;
+    }
+  }
 
   table {
     border-spacing: 0;
@@ -34,4 +45,25 @@ const Styles = styled.div`
   }
 `;
 
-export default Styles;
+export const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 15px;
+
+  label {
+    margin-bottom: 5px;
+  }
+
+  input {
+    margin-bottom: 10px;
+  }
+
+  input,
+  button[type="submit"] {
+    padding: 0.5rem;
+  }
+
+  button[type="submit"] {
+    margin-top: 15px;
+  }
+`;

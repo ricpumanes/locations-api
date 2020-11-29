@@ -5,7 +5,8 @@ import { useTable, usePagination } from "react-table";
 
 import { name, reducer, actions } from "./slice";
 import saga from "./saga";
-import Styles from "./styles";
+import { Wrapper } from "./styles";
+import LocationsAdd from "./LocationsAdd";
 
 const useLocations = () => {
   useInjectReducer({ key: name, reducer });
@@ -20,7 +21,7 @@ const useLocations = () => {
     dispatch(actions.fetch());
   }, []);
 
-  const onAddClick = () => {
+  const onAdd = () => {
     dispatch(
       actions.create({
         location: `${id}-sample-location`,
@@ -37,11 +38,11 @@ const useLocations = () => {
     );
   };
 
-  return { ...selector, onAddClick, onDelete };
+  return { ...selector, onAdd, onDelete };
 };
 
 const Locations = () => {
-  const { locations, onAddClick, onDelete } = useLocations();
+  const { locations, onDelete } = useLocations();
 
   const columns = React.useMemo(
     () => [
@@ -87,13 +88,9 @@ const Locations = () => {
     usePagination
   );
 
-  console.log(page);
-
   return (
-    <Styles>
-      <button type="button" onClick={onAddClick}>
-        Add Item
-      </button>
+    <Wrapper>
+      <LocationsAdd />
       <table {...getTableProps()}>
         <thead>
           {headerGroups.map((headerGroup) => (
@@ -163,7 +160,7 @@ const Locations = () => {
           ))}
         </select>
       </div>
-    </Styles>
+    </Wrapper>
   );
 };
 

@@ -17,17 +17,15 @@ const locationSlice = createSlice({
       state.error = null;
     },
     fetchSuccess(state, action) {
-      console.log(action);
       state.locations = action.payload.data;
       state.loading = false;
       state.error = null;
     },
     fetchError(state, action) {
-      console.log("action", action);
       state.loading = false;
       state.error = action.payload.error;
     },
-    create(state, action) {
+    create(state) {
       state.creating = true;
       state.createError = null;
     },
@@ -40,12 +38,11 @@ const locationSlice = createSlice({
       state.creating = false;
       state.createError = action.payload.error;
     },
-    delete(state, action) {
+    delete(state) {
       state.deleting = true;
       state.deleteError = null;
     },
     deleteSuccess(state, action) {
-      console.log("action", action);
       state.deleting = false;
       state.deleteError = null;
       state.locations = state.locations.filter(
