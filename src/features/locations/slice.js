@@ -10,6 +10,8 @@ const locationSlice = createSlice({
     createError: null,
     deleting: false,
     deleteError: null,
+    editing: false,
+    editError: null,
   },
   reducers: {
     fetch(state) {
@@ -52,6 +54,24 @@ const locationSlice = createSlice({
     deleteError(state, action) {
       state.deleting = false;
       state.deleteError = action.payload.error;
+    },
+    edit(state) {
+      state.editing = true;
+      state.editError = null;
+    },
+    editSuccess(state, action) {
+      state.editing = false;
+      state.editError = null;
+      state.locations = state.locations.map((info) => {
+        if (info?.id === action?.payload?.data?.id) {
+          info = action?.payload?.data;
+        }
+        return info;
+      });
+    },
+    editError(state, action) {
+      state.editing = false;
+      state.editError = action.payload.error;
     },
   },
 });

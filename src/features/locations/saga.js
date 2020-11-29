@@ -30,8 +30,18 @@ export function* deleteLocation({ payload }) {
   }
 }
 
+export function* editLocation({ payload }) {
+  try {
+    const data = yield call(locationsAPI.edit, payload);
+    yield put(actions.editSuccess({ data }));
+  } catch (error) {
+    yield put(actions.editError({ error }));
+  }
+}
+
 export default function* locationsSaga() {
   yield takeEvery(actions.fetch.type, fetchLocations);
   yield takeEvery(actions.create.type, createLocation);
   yield takeEvery(actions.delete.type, deleteLocation);
+  yield takeEvery(actions.edit.type, editLocation);
 }

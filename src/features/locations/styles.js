@@ -14,6 +14,18 @@ export const Wrapper = styled.div`
     }
   }
 
+  .edit-location-btn,
+  .delete-location-btn {
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+    margin-right: 5px;
+
+    .icon {
+      margin-right: 5px;
+    }
+  }
+
   table {
     border-spacing: 0;
     border: 1px solid black;
@@ -65,5 +77,21 @@ export const Form = styled.form`
 
   button[type="submit"] {
     margin-top: 15px;
+  }
+`;
+
+export const ActionButtonsWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const DeleteModalButtonsWrapper = styled.div`
+  display: flex;
+  align-items: center;
+
+  button[type="button"] {
+    padding: 0.5rem;
+    margin-right: 5px;
   }
 `;

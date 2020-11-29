@@ -2,11 +2,14 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useInjectReducer, useInjectSaga } from "redux-injectors";
 import { useTable, usePagination } from "react-table";
+import { FaTrashAlt } from "react-icons/fa";
 
 import { name, reducer, actions } from "./slice";
 import saga from "./saga";
-import { Wrapper } from "./styles";
+import { ActionButtonsWrapper, Wrapper } from "./styles";
 import LocationsAdd from "./LocationsAdd";
+import LocationsEdit from "./LocationsEdit";
+import LocationsDelete from "./LocationsDelete";
 
 const useLocations = () => {
   useInjectReducer({ key: name, reducer });
@@ -15,34 +18,15 @@ const useLocations = () => {
   const dispatch = useDispatch();
   const selector = useSelector((state) => state.locationsReducer);
 
-  const id = Math.random().toString(31).split(".")[1];
-
   React.useEffect(() => {
     dispatch(actions.fetch());
   }, []);
 
-  const onAdd = () => {
-    dispatch(
-      actions.create({
-        location: `${id}-sample-location`,
-        description: `${id}-sample-description`,
-      })
-    );
-  };
-
-  const onDelete = (id) => {
-    dispatch(
-      actions.delete({
-        id,
-      })
-    );
-  };
-
-  return { ...selector, onAdd, onDelete };
+  return { ...selector };
 };
 
 const Locations = () => {
-  const { locations, onDelete } = useLocations();
+  const { locations } = useLocations();
 
   const columns = React.useMemo(
     () => [
@@ -54,9 +38,10 @@ const Locations = () => {
         id: "actionButtons",
         Cell: ({ row }) => {
           return (
-            <button type="button" onClick={() => onDelete(row?.original?.id)}>
-              Delete
-            </button>
+            <ActionButtonsWrapper>
+              <LocationsDelete info={row?.original} />
+              <LocationsEdit info={row?.original} />
+            </ActionButtonsWrapper>
           );
         },
       },
